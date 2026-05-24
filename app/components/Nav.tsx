@@ -101,7 +101,9 @@ export default function Nav() {
         </nav>
 
         <div className="flex items-center gap-4">
-          <LangToggle />
+          <div className="hidden md:block">
+            <LangToggle />
+          </div>
           <button
             data-cursor="link"
             onClick={() => setOpen(true)}
