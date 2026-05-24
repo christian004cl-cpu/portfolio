@@ -4,10 +4,16 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useScroll, useSpring } from "motion/react";
 import { useLanguage } from "../lib/language";
 import LangToggle from "./LangToggle";
+import { useLenis } from "./SmoothScroll";
+
+// Apple-like easing curve for scroll: easeInOutCubic
+const easeInOutCubic = (t: number) =>
+  t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 
 export default function Nav() {
   const { t } = useLanguage();
   const links = t.nav.links;
+  const lenis = useLenis();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -24,6 +30,23 @@ export default function Nav() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const onLinkClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
+    if (!lenis || !href.startsWith("#")) return;
+    const target =
+      href === "#" || href === "#hero"
+        ? 0
+        : document.querySelector<HTMLElement>(href);
+    if (target === null) return;
+    e.preventDefault();
+    lenis.scrollTo(target, {
+      duration: 1.6,
+      easing: easeInOutCubic,
+    });
+  };
 
   return (
     <>
@@ -45,13 +68,14 @@ export default function Nav() {
         <motion.div
           aria-hidden
           style={{ scaleX, transformOrigin: "0% 50%" }}
-          className={`pointer-events-none absolute bottom-0 inset-x-0 h-[2px] bg-[#e91e63] transition-opacity duration-500 ${
+          className={`pointer-events-none absolute bottom-0 inset-x-0 h-[2px] bg-[#313131] transition-opacity duration-500 ${
             scrolled ? "opacity-100" : "opacity-0"
           }`}
         />
 
         <a
           href="#hero"
+          onClick={(e) => onLinkClick(e, "#hero")}
           data-cursor="link"
           className="flex items-center gap-2 text-sm tracking-wider"
         >
@@ -67,6 +91,7 @@ export default function Nav() {
             <a
               key={l.href}
               href={l.href}
+              onClick={(e) => onLinkClick(e, l.href)}
               data-cursor="link"
               className="text-sm link-underline"
             >
@@ -88,6 +113,7 @@ export default function Nav() {
           </button>
           <a
             href="#contact"
+            onClick={(e) => onLinkClick(e, "#contact")}
             data-cursor="link"
             className="hidden md:inline-flex btn-magnetic"
           >
@@ -125,7 +151,10 @@ export default function Nav() {
                 >
                   <a
                     href={l.href}
-                    onClick={() => setOpen(false)}
+                    onClick={(e) => {
+                      setOpen(false);
+                      onLinkClick(e, l.href);
+                    }}
                     className="text-5xl font-light tracking-tight"
                   >
                     {l.label}

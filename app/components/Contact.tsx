@@ -4,6 +4,12 @@ import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import { useLanguage } from "../lib/language";
 
+const socials = [
+  { label: "LinkedIn", href: "https://linkedin.com/in/christian-linaresui" },
+  { label: "Dribbble", href: "https://dribbble.com/christianUI_UX" },
+  { label: "Instagram", href: "https://instagram.com" },
+];
+
 export default function Contact() {
   const { t } = useLanguage();
   const ref = useRef<HTMLDivElement>(null);
@@ -18,7 +24,7 @@ export default function Contact() {
     <section
       id="contact"
       ref={ref}
-      className="relative px-6 md:px-10 py-32 md:py-48 border-t border-[var(--color-line)] overflow-hidden"
+      className="relative px-6 md:px-10 py-20 md:py-24 border-t border-[var(--color-line)] overflow-hidden"
     >
       <motion.div
         style={{ y, scale }}
@@ -29,7 +35,7 @@ export default function Contact() {
           {t.contact.eyebrow}
         </span>
 
-        <h2 className="mt-10 font-light tracking-tighter leading-[0.88] text-[18vw] md:text-[14vw]">
+        <h2 className="mt-6 font-light tracking-tighter leading-[1.1] text-[12vw] md:text-[8vw]">
           <span className="block">{t.contact.line1}</span>
           <span className="block italic font-serif text-[var(--color-fg-dim)]">
             {t.contact.line2}
@@ -37,7 +43,7 @@ export default function Contact() {
           <span className="block">{t.contact.line3}</span>
         </h2>
 
-        <div className="mt-12 flex flex-col items-center gap-4">
+        <div className="mt-8 flex flex-col items-center gap-3">
           <a
             href="mailto:christian.pdesign004@gmail.com"
             data-cursor="view"
@@ -71,7 +77,7 @@ export default function Contact() {
           </a>
         </div>
 
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-3xl text-left">
+        <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-3xl text-left">
           <div className="border-t border-[var(--color-line)] pt-4">
             <div className="text-[11px] uppercase tracking-[0.2em] text-[var(--color-fg-dim)]">
               {t.contact.labels.availability}
@@ -92,6 +98,38 @@ export default function Contact() {
           </div>
         </div>
       </motion.div>
+
+      <div className="relative mt-10 md:mt-12 flex flex-col md:flex-row md:items-start md:justify-between gap-8">
+        <div>
+          <div className="text-5xl md:text-7xl font-light tracking-tighter leading-none">
+            CL<span className="text-[var(--color-accent)]">.</span>
+          </div>
+          <p className="mt-6 max-w-sm text-[var(--color-fg-dim)] text-sm">
+            {t.footer.tagline}
+          </p>
+        </div>
+
+        <div className="md:text-right">
+          <div className="text-[11px] uppercase tracking-[0.2em] text-[var(--color-fg-dim)] mb-4">
+            {t.footer.elsewhere}
+          </div>
+          <ul className="space-y-2">
+            {socials.map((s) => (
+              <li key={s.label}>
+                <a
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener"
+                  data-cursor="link"
+                  className="link-underline text-base"
+                >
+                  {s.label} ↗
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </section>
   );
 }

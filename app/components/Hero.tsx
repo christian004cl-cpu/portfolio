@@ -3,6 +3,52 @@
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import { useLanguage } from "../lib/language";
+import HoverImageWord from "./HoverImageWord";
+
+function renderBio(text: string): React.ReactNode[] {
+  // Supports two inline tokens:
+  //   [[label|/image-path]] -> hover-preview word (bold + underlined)
+  //   [label](url)          -> external link
+  const parts: React.ReactNode[] = [];
+  const regex = /\[\[([^|\]]+)\|([^\]]+)\]\]|\[([^\]]+)\]\(([^)]+)\)/g;
+  let lastIndex = 0;
+  let match;
+  let key = 0;
+  while ((match = regex.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push(text.slice(lastIndex, match.index));
+    }
+    if (match[1] && match[2]) {
+      parts.push(
+        <HoverImageWord
+          key={`hov-${key++}`}
+          src={match[2]}
+          alt={match[1]}
+        >
+          {match[1]}
+        </HoverImageWord>,
+      );
+    } else if (match[3] && match[4]) {
+      parts.push(
+        <a
+          key={`lnk-${key++}`}
+          href={match[4]}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-cursor="link"
+          className="text-[var(--color-fg)] underline underline-offset-4 decoration-1 hover:text-[var(--color-accent)] transition-colors duration-300"
+        >
+          {match[3]}
+        </a>,
+      );
+    }
+    lastIndex = match.index + match[0].length;
+  }
+  if (lastIndex < text.length) {
+    parts.push(text.slice(lastIndex));
+  }
+  return parts;
+}
 
 export default function Hero() {
   const { t, lang } = useLanguage();
@@ -44,7 +90,7 @@ export default function Hero() {
 
         <h1
           key={lang}
-          className="font-light leading-[0.92] tracking-tighter text-[14vw] md:text-[10vw]"
+          className="font-light leading-[1.2] tracking-tighter text-[12vw] md:text-[8.5vw]"
         >
           {lines.map((line, li) => (
             <span key={li} className="block overflow-hidden">
@@ -70,9 +116,9 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 3, duration: 0.8 }}
-          className="text-sm text-[var(--color-fg-dim)] max-w-xs"
+          className="text-[22px] leading-relaxed text-[var(--color-fg-dim)] max-w-lg"
         >
-          {t.hero.bio}
+          {renderBio(t.hero.bio)}
         </motion.div>
 
         <motion.a

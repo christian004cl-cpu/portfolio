@@ -22,7 +22,7 @@ export const translations = {
       line2a: "digital",
       line2b: "products",
       line3: "with intent.",
-      bio: "Product designer working remotely from Lima. Currently building product surfaces at Rappi & freelancing for ambitious teams worldwide.",
+      bio: "Product designer working remotely from [[Lima|/mapa-lima-peru.png]]. Currently building product interfaces at [Rappi](https://apps.apple.com/pe/app/rappi-pide-todo-en-minutos/id984044296).",
       indexLabel: "Index",
       yearLabel: "Year",
       focusLabel: "Focus",
@@ -45,7 +45,7 @@ export const translations = {
         "· Open to freelance",
       ],
       paragraph:
-        "I'm Christian — Product Designer with over 5 years of experience leading digital product design at regional-scale technology companies. Currently at Rappi, I lead the design strategy for the Pro membership program and multiple high-impact verticals, collaborating as a strategic partner with Product Management, Data, and Engineering.",
+        "I'm Christian — Product Designer with over 5 years of experience designing digital products at regional-scale technology companies, currently at Rappi leading the design strategy for the Pro membership program.",
       stats: [
         { k: "05", v: "Years of experience" },
         { k: "12+", v: "Shipped projects" },
@@ -117,6 +117,7 @@ export const translations = {
       titleB: "timeline",
       titleC: ".",
       recognitionTitle: "Recognition",
+      itemsLabel: "Experience",
       items: [
         {
           period: "2022 — Now",
@@ -488,7 +489,7 @@ export const translations = {
       line2a: "productos",
       line2b: "digitales",
       line3: "con intención.",
-      bio: "Product Designer trabajando remoto desde Lima. Actualmente construyendo producto en Rappi y trabajando freelance con equipos ambiciosos alrededor del mundo.",
+      bio: "Diseñador de producto trabajando de forma remota desde [[Lima|/mapa-lima-peru.png]]. Actualmente desarrollando interfaces de producto en [Rappi](https://apps.apple.com/pe/app/rappi-pide-todo-en-minutos/id984044296).",
       indexLabel: "Índice",
       yearLabel: "Año",
       focusLabel: "Enfoque",
@@ -511,7 +512,7 @@ export const translations = {
         "· Abierto a freelance",
       ],
       paragraph:
-        "Soy Christian — Product Designer con más de 5 años de experiencia liderando el diseño de productos digitales en compañías tecnológicas a escala regional. Actualmente en Rappi, lidero la estrategia de diseño del programa de membresía Pro y múltiples verticales de alto impacto, colaborando como socio estratégico con Product Management, Data e Ingeniería.",
+        "Soy Christian — Product Designer con más de 5 años de experiencia en diseño de productos digitales en compañías tecnológicas actualmente en Rappi, lidero la estrategia de la membresía Pro.",
       stats: [
         { k: "05", v: "Años de experiencia" },
         { k: "12+", v: "Proyectos entregados" },
@@ -583,6 +584,7 @@ export const translations = {
       titleB: "línea de tiempo",
       titleC: ".",
       recognitionTitle: "Reconocimientos",
+      itemsLabel: "Experiencia",
       items: [
         {
           period: "2022 — Hoy",
